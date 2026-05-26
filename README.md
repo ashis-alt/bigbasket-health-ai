@@ -56,3 +56,62 @@ flowchart TB
     A3 -->|"4. Priced Cart & Recipes JSON"| Backend
     
     Backend -->|"5. Delivers Final Structured Payload"| Frontend
+```
+The 3-Agent Hierarchical Workflow
+Agent 1 (Multimodal Medical Extractor): Ingests the raw PDF/Image of the blood report. Extracts every biomarker, exact value, unit, and reference range, flagging critical anomalies.
+
+Agent 2 (Clinical Dietitian): Analyzes the JSON output to formulate a targeted dietary strategy, strictly applying Dynamic Contraindication Checks to ensure recommended foods do not trigger other underlying high/low markers.
+
+Agent 3 (Personal Health Shopper & Chef): Queries the local SQLite database for real, in-stock groceries. Maps clinical needs to specific products, sets quantities, calculates the total cart price, and writes custom step-by-step recipes utilizing ONLY the cart inventory.
+
+ Technology Stack
+Frontend: React, Vite, Tailwind CSS, Axios, Lucide-React
+
+Backend: Python, FastAPI, Uvicorn
+
+Database: SQLite & SQLAlchemy
+
+AI Engine: Google GenAI SDK (gemini-2.5-flash)
+
+Data Validation: Pydantic (Strict JSON Schema Enforcement)
+
+Running the Project Locally
+Prerequisites
+Python 3.9+
+
+Node.js & npm
+
+A Google Gemini API Key
+
+1. Backend Setup
+Navigate to the root directory and create a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+Environment Variables:
+Create a .env file in the root directory and add your API key:
+```env
+GEMINI_API_KEY="your_api_key_here"
+```
+
+Initialize Database & Start Server:
+```bash
+
+Seed the virtual BigBasket warehouse
+python -m backend.seed_db
+
+Start the FastAPI server
+uvicorn backend.main:app --reload
+```
+
+
+2. Frontend Setup
+Open a new terminal and navigate to the frontend directory:
+```bash
+cd frontend
+npm install
+npm run dev
+```
